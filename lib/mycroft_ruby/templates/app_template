@@ -1,0 +1,23 @@
+require 'mycroft_ruby'
+require 'json'
+
+class %%APPNAME%%
+
+  APP_MANIFEST = JSON.parse(File.read('path/to/app/manifest.json'))
+
+  def on_connect
+    # Your code here...
+  end
+
+  def on_disconnect
+    # Your code here...
+  end
+
+  def on_data(response)
+    # Your code here...
+  end
+
+end
+
+# Start the client
+MycroftRuby.start(%%APPNAME%%.new)
