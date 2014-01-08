@@ -1,4 +1,5 @@
 require 'thor'
+require 'active_support/lazy_load_hooks'
 require 'active_support/core_ext/string'
 
 module MycroftRuby
@@ -7,12 +8,12 @@ module MycroftRuby
     def new(app_name)
       camelcase = app_name.camelize
       underscore = app_name.underscore
-      app_template = File.read('templates/app_template')
+      app_template = File.read("#{Gem.dir}/gems/mycroft_ruby-#{MycroftRuby::VERSION}/lib/mycroft_ruby/templates/app_template")
       app_template.gsub!(/%%APPNAME%%/, camelcase)
 
-      post_file = File.open("./#{underscore}.rb", 'w')
-      post_file.puts app_template
-      post_file.close
+      app_file = File.open("./#{underscore}.rb", 'w')
+      app_file.puts app_template
+      app_file.close
       puts "Successfully created #{underscore}.rb"
     end
   end

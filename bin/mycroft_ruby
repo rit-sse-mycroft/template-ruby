@@ -1,1 +1,5 @@
 #!/usr/bin/env ruby
+
+require 'mycroft_ruby'
+
+MycroftRuby::CLI.start(ARGV)
