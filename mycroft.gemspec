@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'mycroft_ruby/version'
+require 'mycroft/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "mycroft_ruby"
-  spec.version       = MycroftRuby::VERSION
+  spec.name          = "mycroft"
+  spec.version       = Mycroft::VERSION
   spec.authors       = ["rit-sse"]
   spec.description   = %q{Gem for creating a mycroft app in ruby.}
   spec.summary       = %q{Gem for creating a mycroft app in ruby.}

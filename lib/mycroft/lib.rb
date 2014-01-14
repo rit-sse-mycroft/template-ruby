@@ -2,7 +2,7 @@ require 'json'
 require 'socket'
 require 'openssl'
 
-module MycroftRuby
+module Mycroft
   MYCROFT_PORT = 1847
 
   # Parses a message

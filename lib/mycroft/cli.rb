@@ -2,13 +2,13 @@ require 'thor'
 require 'active_support/lazy_load_hooks'
 require 'active_support/core_ext/string'
 
-module MycroftRuby
+module Mycroft
   class CLI < Thor
     desc "new APPNAME", "create a new app with the name APPNAME"
     def new(app_name)
       camelcase = app_name.camelize
       underscore = app_name.underscore
-      path = "#{Gem.dir}/gems/mycroft_ruby-#{MycroftRuby::VERSION}/lib/mycroft_ruby/templates/"
+      path = "#{Gem.dir}/gems/mycroft-#{Mycroft::VERSION}/lib/mycroft/templates/"
       app_template = File.read("#{path}/app_template")
       app_template.gsub!(/%%APPNAME%%/, camelcase)
       app_manifest = File.read("#{path}/app_manifest")

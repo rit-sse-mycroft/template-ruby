@@ -1,4 +1,4 @@
-# MycroftRuby
+# Mycroft
 
 Gem for creating mycroft application in ruby.
 
@@ -6,7 +6,7 @@ Gem for creating mycroft application in ruby.
 
 Add this line to your application's Gemfile:
 
-    gem 'mycroft_ruby'
+    gem 'mycroft'
 
 And then execute:
 
@@ -14,12 +14,10 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mycroft_ruby
+    $ gem install mycroft
 
 ## Usage
 
 To generate a new template
 
-`mycroft_ruby new [APP_NAME]`
-
-## Contributing
+`mycroft new [APP_NAME]`
