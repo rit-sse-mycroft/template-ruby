@@ -8,13 +8,20 @@ module MycroftRuby
     def new(app_name)
       camelcase = app_name.camelize
       underscore = app_name.underscore
-      app_template = File.read("#{Gem.dir}/gems/mycroft_ruby-#{MycroftRuby::VERSION}/lib/mycroft_ruby/templates/app_template")
+      path = "#{Gem.dir}/gems/mycroft_ruby-#{MycroftRuby::VERSION}/lib/mycroft_ruby/templates/"
+      app_template = File.read("#{path}/app_template")
       app_template.gsub!(/%%APPNAME%%/, camelcase)
+      app_manifest = File.read("#{path}/app_manifest")
 
       app_file = File.open("./#{underscore}.rb", 'w')
       app_file.puts app_template
       app_file.close
       puts "Successfully created #{underscore}.rb"
+
+      app_file = File.open("./#{underscore}.json", 'w')
+      app_file.puts app_manifest
+      app_file.close
+      puts "Successfully created #{underscore}.json"
     end
   end
 end
