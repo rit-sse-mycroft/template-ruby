@@ -4,6 +4,7 @@ require 'openssl'
 
 module Mycroft
   MYCROFT_PORT = 1847
+  extend self
 
   # Parses a message
   def parse_message(msg)
@@ -24,7 +25,7 @@ module Mycroft
   end
 
   # Sends a message of a specific type
-  def send_message(connection, type, message)
+  def send_message(connection, type, message=nil)
     message = message.nil? ? message = '' : message.to_json
     body = type + ' ' + message
     length = body.bytesize
@@ -68,5 +69,15 @@ module Mycroft
     end
     puts 'Sending Manifest'
     send_message(connection, 'APP_MANIFEST', manifest)
+  end
+
+  def up(connection)
+    puts 'Sending App Up'
+    send_message(connection, 'APP_UP')
+  end
+
+  def down(connection)
+    puts 'Sending App Down'
+    send_message(connection, 'APP_DOWN')
   end
 end
