@@ -16,7 +16,6 @@ module Mycroft
 
     while length = client.gets
       data = client.read(length.to_i)
-      puts "Data: #{data}"
       parsed = Mycroft::parse_message(data)
 
       if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'

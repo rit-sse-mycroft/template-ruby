@@ -51,7 +51,6 @@ module Mycroft
     rescue
       puts 'Invalid File Path'
     end
-    puts 'Sending Manifest'
     send_message(connection, 'APP_MANIFEST', manifest)
   end
 
