@@ -1,3 +1,2 @@
 require 'mycroft_ruby'
 require 'json'
-
