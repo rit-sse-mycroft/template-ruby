@@ -1,2 +1,46 @@
 require 'mycroft'
 require 'json'
+
+class %%APPNAME%%
+  KEY = '/path/to/key'
+  CERT = '/path/to/cert'
+  MANIFEST = './%%UNDERSCORE%%.json'
+
+  # Called after recieveing APP_MANIFEST_OK
+  def on_app_manifest_response(data)
+    # Your code here...
+  end
+
+  # Called when a MSG_QUERY is recieved
+  def on_query_recieved(data)
+    # Your code here...
+  end
+
+  # Called when MSG_QUERY_SUCCESS is recieved
+  def on_query_succesful(data)
+    # Your code here...
+  end
+
+  # Called when MSG_QUERY_FAIL is recieved
+  def on_query_failed(data)
+    # Your code here...
+  end
+
+  # Called when you get a message you weren't expecting
+  def on_unknown_message(type, data)
+    # Your code here...
+  end
+
+  # Called when data is recieved after your app is verified
+  def on_data(type, data)
+    # Your code here...
+  end
+
+  # Called if dependencies change
+  # Returns true if you can go up. False if not
+  def check_dependencies(dependencies)
+    # Your code here...
+  end
+end
+
+Mycroft.start_simple_app(%%APPNAME%%.new)
