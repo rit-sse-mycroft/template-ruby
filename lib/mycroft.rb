@@ -1,6 +1,6 @@
-require "mycroft/version"
+require 'mycroft/version'
 require 'mycroft/cli'
+require 'mycroft/messages'
 
 module Mycroft
-  # Your code goes here...
 end

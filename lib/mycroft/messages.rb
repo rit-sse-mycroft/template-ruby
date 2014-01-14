@@ -23,6 +23,17 @@ module Mycroft
     {type: type, data: data}
   end
 
+  # Sends a message of a specific type
+  def send_message(connection, type, message)
+    message = message.nil? ? message = '' : message.to_json
+    body = type + ' ' + message
+    length = body.bytesize
+    puts 'Sending Messsage'
+    puts length
+    puts body
+    connection.puts("#{length}\n#{body}")
+  end
+
   # Connects to mycroft
   def connect_to_mycroft(key='', cert='')
     client = nil
@@ -46,5 +57,16 @@ module Mycroft
       end
     end
     client
+  end
+
+  # Sends the app manifest to mycroft
+  def send_manifest(connection, path)
+    begin
+      manifest = JSON.parse(File.open(path))
+    rescue
+      puts 'Invalid File Path'
+    end
+    puts 'Sending Manifest'
+    send_message(connection, 'APP_MANIFEST', manifest)
   end
 end
