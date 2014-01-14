@@ -33,8 +33,7 @@ module Mycroft
   end
 
   # Checks if the manifest is valid and returns dependencies
-  def check_manifest(data)
-    parsed = parse_message(data)
+  def check_manifest(parsed)
     if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
       puts 'Response type: ' + parsed[:type]
       puts 'Response recived: ' + parsed[:data]
