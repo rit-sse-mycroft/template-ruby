@@ -31,4 +31,16 @@ module Mycroft
     end
     client
   end
+
+  def check_manifest(data)
+    parsed = Helpers::parse_message(data)
+    if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
+      puts 'Response type: ' + parsed[:type]
+      puts 'Response recived: ' + parsed[:data]
+      raise 'Invalid application manifest' if parsed[:type] == 'APP_MANIFEST_FAIL'
+      puts 'Manifest Validated'
+      return parsed[:data]['dependencies']
+    end
+    nil
+  end
 end
