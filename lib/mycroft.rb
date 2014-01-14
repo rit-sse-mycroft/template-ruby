@@ -18,7 +18,7 @@ module Mycroft
         puts "There was an error establishing connection"
       end
     else
-      console.log('Using TLS')
+      puts ('Using TLS')
       ssl_context = OpenSSL::SSL::SSLContext.new
       ssl_context.cert = OpenSSL::X509::Certificate.new(File.open(cert))
       ssl_context.key = OpenSSL::PKey::RSA.new(File.open(key))

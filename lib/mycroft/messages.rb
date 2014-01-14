@@ -1,6 +1,7 @@
 require 'json'
 require 'socket'
 require 'openssl'
+require 'securerandom'
 
 module Mycroft
   extend self
@@ -15,13 +16,37 @@ module Mycroft
     Helpers::send_message(connection, 'APP_MANIFEST', manifest)
   end
 
+  # Sends app up to mycroft
   def up(connection)
     puts 'Sending App Up'
     Helpers::send_message(connection, 'APP_UP')
   end
 
+  # Sends app down to mycroft
   def down(connection)
     puts 'Sending App Down'
     Helpers::send_message(connection, 'APP_DOWN')
+  end
+
+  # Sends a query to mycroft
+  def query(connection, capability, remote_procedure, args, instance_id)
+    query_message = {
+      id: SecureRandom.uuid,
+      capability: capability,
+      remoteProcedure: remote_procedure,
+      args: args
+    }
+    query_message[:instanceId] = instance_id unless instance_id.nil?
+
+    Helpers::send_message(connection, 'MSG_QUERY', query_message)
+  end
+
+  # Sends a broadcast to the mycroft message board
+  def broadcast(connection, content)
+    message = {
+      content: content
+    }
+
+    Helpers::send_message(connection, 'MSG_BROADCAST', message)
   end
 end
