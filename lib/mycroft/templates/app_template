@@ -3,6 +3,7 @@ require 'mycroft'
 class %%APPNAME%% < Mycroft::Client
 
   attr_accssor :verified
+
   def initialize
     @key = '/path/to/key'
     @cert = '/path/to/cert'
@@ -24,4 +25,3 @@ class %%APPNAME%% < Mycroft::Client
 end
 
 Mycroft.start(%%APPNAME%%)
-
