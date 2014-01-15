@@ -22,10 +22,10 @@ module Mycroft
       app_file.close
       puts "Successfully created #{underscore}.rb"
 
-      app_file = File.open("./#{underscore}.json", 'w')
+      app_file = File.open("./app.json", 'w')
       app_file.puts app_manifest
       app_file.close
-      puts "Successfully created #{underscore}.json"
+      puts "Successfully created app.json"
     end
   end
 end

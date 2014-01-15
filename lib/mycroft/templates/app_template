@@ -7,7 +7,7 @@ class %%APPNAME%% < Mycroft::Client
   def initialize
     @key = '/path/to/key'
     @cert = '/path/to/cert'
-    @manifest = './%%UNDERSCORE%%.json'
+    @manifest = './app.json'
     @verified = false
   end
 
