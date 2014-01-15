@@ -20,7 +20,7 @@ module Mycroft
     end
 
     # Sends a message of a specific type
-    def send_message(connection, type, message=nil)
+    def send_message(type, message=nil)
       message = message.nil? ? message = '' : message.to_json
       body = type + ' ' + message
       body.strip!
