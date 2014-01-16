@@ -2,7 +2,7 @@ require 'mycroft'
 
 class %%APPNAME%% < Mycroft::Client
 
-  attr_accssor :verified
+  attr_accessor :verified
 
   def initialize
     @key = '/path/to/key'
