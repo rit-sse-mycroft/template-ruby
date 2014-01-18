@@ -60,6 +60,14 @@ module Mycroft
       send_message('MSG_QUERY', query_message)
     end
 
+    def query_success(id, ret)
+      query_success = {
+        id: id,
+        ret: ret
+      }
+      send_message('MSG_QUERY_SUCCESS', query_success)
+    end
+
     # Sends a broadcast to the mycroft message board
     def broadcast(content)
       message = {
