@@ -11,7 +11,12 @@ module Mycroft
     end
 
     def receive_data(data)
-      on_data(data)
+      parsed = parse_message(data)
+      if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
+        check_manifest(parsed)
+        @verified = true
+      end
+      on_data(parsed)
     end
 
     def unbind
