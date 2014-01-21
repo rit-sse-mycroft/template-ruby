@@ -81,6 +81,7 @@ module Mycroft
     # Sends a broadcast to the mycroft message board
     def broadcast(content)
       message = {
+        id: SecureRandom.uuid,
         content: content
       }
 
