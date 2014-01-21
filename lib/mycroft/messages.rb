@@ -48,12 +48,14 @@ module Mycroft
     end
 
     # Sends a query to mycroft
-    def query(capability, action, data, instance_id = nil)
+    def query(capability, action, data, priority = 30, instance_id = nil)
       query_message = {
         id: SecureRandom.uuid,
         capability: capability,
         action: action,
-        data: data
+        data: data,
+        priority: priority,
+        instanceId: []
       }
       query_message[:instanceId] = instance_id unless instance_id.nil?
 
