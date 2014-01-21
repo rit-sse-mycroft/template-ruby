@@ -9,8 +9,6 @@ module Mycroft
   MYCROFT_PORT = 1847
 
   def start(app)
-    EventMachine.run do
-      EventMachine.connect('localhost', MYCROFT_PORT, app)
-    end
+    app.new('localhost', MYCROFT_PORT)
   end
 end

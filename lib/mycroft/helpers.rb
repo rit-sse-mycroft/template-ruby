@@ -4,17 +4,17 @@ module Mycroft
     # Parses a message
     def parse_message(msg)
       msg = msg.to_s
-      re = /(\d+)\n([A-Z_]*) ({.*})$/
+      re = /([A-Z_]*) ({.*})$/
       msg_split = re.match(msg)
       if msg_split.nil?
-        re = /(\d+)\n([A-Z_]*)/
+        re = /([A-Z_]*)/
         msg_split = re.match(msg)
         raise "Error: Malformed Message" if not msg_split
-        type = msg_split[2]
+        type = msg_split[1]
         data = {}
       else
-        type = msg_split[2]
-        data = JSON.parse(msg_split[3])
+        type = msg_split[1]
+        data = JSON.parse(msg_split[2])
       end
       {type: type, data: data}
     end
@@ -28,7 +28,7 @@ module Mycroft
       puts 'Sending Messsage'
       puts length
       puts body
-      send_data("#{length}\n#{body}")
+      @client.puts("#{length}\n#{body}")
     end
   end
 end

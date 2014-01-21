@@ -9,17 +9,25 @@ module Mycroft
     def connect_to_mycroft(key='', cert='')
       if ARGV.length == 1 and ARGV[0] == '--no-tls'
         puts 'Not Using TLS'
+        @client = TCPSocket.open('localhost', 1847)
       else
         puts ('Using TLS')
-        start_tls(private_key_file: @key, cert_chain_file: @cert)
+        socket = TCPSocket.new('localhost', 1847)
+        ssl_context = OpenSSL::SSL::SSLContext.new
+        ssl_context.cert = OpenSSL::X509::Certificate.new(File.open(cert))
+        ssl_context.key = OpenSSL::PKey::RSA.new(File.open(key))
+        @client = OpenSSL::SSL::SSLSocket.new(socket, ssl_context)
+        begin
+          @client.connect
+        rescue
+          puts "There was an error in establishing TLS connection"
+        end
       end
     end
 
     # Checks if the manifest is valid and returns dependencies
     def check_manifest(parsed)
       if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
-        puts "Response type: #{parsed[:type]}"
-        puts "Response recived: #{parsed[:data]}"
         raise 'Invalid application manifest' if parsed[:type] == 'APP_MANIFEST_FAIL'
         puts 'Manifest Validated'
         return parsed[:data]['dependencies']
