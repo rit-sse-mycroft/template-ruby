@@ -38,9 +38,10 @@ module Mycroft
     end
 
     def shutdown
+      on_end
+      down
       puts 'Disconnected from Mycroft'
       @client.close
-      on_end
     end
   end
 end
