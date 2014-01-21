@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "active_support"
   spec.add_runtime_dependency "eventmachine"
+  spec.add_runtime_dependency "celluloid-io"
 end
