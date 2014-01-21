@@ -1,12 +1,9 @@
-require 'celluloid/io'
-require 'celluloid/autostart'
+require 'socket'
+require 'io/wait'
 
 module Mycroft
   class Client
-    include Celluloid::IO
     include Messages
-
-    finalizer :shutdown
 
     def initialize(host, port)
       @host = host
@@ -20,11 +17,14 @@ module Mycroft
 
     def run
       loop do
-        wait_readable(@client)
-        size = @client.readline
-        data = @client.read(size.to_i)
-        receive_data(data)
+        if @client.ready?
+          size = @client.readline
+          data = @client.read(size.to_i)
+          receive_data(data)
+        end
       end
+    ensure
+      shutdown
     end
 
     def receive_data(data)
