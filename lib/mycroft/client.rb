@@ -22,6 +22,7 @@ module Mycroft
           data = @client.read(size.to_i)
           receive_data(data)
         end
+        on_event_loop if methods.include?(:on_event_lopp)
       end
     ensure
       shutdown
