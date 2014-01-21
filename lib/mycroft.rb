@@ -8,7 +8,7 @@ module Mycroft
   extend self
   MYCROFT_PORT = 1847
 
-  def start(app)
-    app.new('localhost', MYCROFT_PORT)
+  def start(app, host='localhost', port=MYCROFT_PORT)
+    app.new(host, port)
   end
 end

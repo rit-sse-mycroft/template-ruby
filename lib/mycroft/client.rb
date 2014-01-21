@@ -9,6 +9,8 @@ module Mycroft
     finalizer :shutdown
 
     def initialize(host, port)
+      @host = host
+      @port = port
       connect_to_mycroft
       puts 'Connected to mycroft'
       send_manifest

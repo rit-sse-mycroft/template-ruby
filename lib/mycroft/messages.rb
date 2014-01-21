@@ -6,16 +6,16 @@ module Mycroft
     include Helpers
 
     # connects to mycroft aka starts tls if necessary
-    def connect_to_mycroft(key='', cert='')
+    def connect_to_mycroft
       if ARGV.length == 1 and ARGV[0] == '--no-tls'
         puts 'Not Using TLS'
-        @client = TCPSocket.open('localhost', 1847)
+        @client = TCPSocket.open(@host, @port)
       else
         puts ('Using TLS')
-        socket = TCPSocket.new('localhost', 1847)
+        socket = TCPSocket.new(@host, @port)
         ssl_context = OpenSSL::SSL::SSLContext.new
-        ssl_context.cert = OpenSSL::X509::Certificate.new(File.open(cert))
-        ssl_context.key = OpenSSL::PKey::RSA.new(File.open(key))
+        ssl_context.cert = OpenSSL::X509::Certificate.new(File.open(@cert))
+        ssl_context.key = OpenSSL::PKey::RSA.new(File.open(@key))
         @client = OpenSSL::SSL::SSLSocket.new(socket, ssl_context)
         begin
           @client.connect
