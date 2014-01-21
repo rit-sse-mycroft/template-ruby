@@ -55,6 +55,10 @@ module Mycroft
       send_message('APP_DOWN')
     end
 
+    def in_use
+      send_message('APP_IN_USE')
+    end
+
     # Sends a query to mycroft
     def query(capability, action, data, priority = 30, instance_id = nil)
       query_message = {
