@@ -28,7 +28,7 @@ module Mycroft
       puts 'Sending Messsage'
       puts length
       puts body
-      @client.puts("#{length}\n#{body}")
+      @client.write("#{length}\n#{body}")
     end
   end
 end
