@@ -39,6 +39,7 @@ module Mycroft
     def send_manifest
       begin
         manifest = JSON.parse(File.read(@manifest))
+        manifest["instanceId"] = "#{ENV["COMPUTERNAME"]}_#{SecureRandom.uuid}" if @generate_instance_ids
       rescue
         puts 'Invalid File Path'
       end
