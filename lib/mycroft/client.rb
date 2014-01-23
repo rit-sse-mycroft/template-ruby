@@ -10,6 +10,16 @@ module Mycroft
       @port = port
       connect_to_mycroft
       puts 'Connected to mycroft'
+      if @threaded
+        Thread.new do
+          setup
+        end
+      else
+        setup
+      end
+    end
+    
+    def setup
       send_manifest
       connect
       run
@@ -30,7 +40,7 @@ module Mycroft
 
     def receive_data(data)
       parsed = parse_message(data)
-      puts "Recieved #{parsed[:type]}"
+      puts "Recieved #{parsed}"
       if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
         check_manifest(parsed)
         @verified = true

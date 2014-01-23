@@ -55,8 +55,8 @@ module Mycroft
       send_message('APP_DOWN')
     end
 
-    def in_use
-      send_message('APP_IN_USE')
+    def in_use(priority)
+      send_message('APP_IN_USE', {priority: (priority or 30)})
     end
 
     # Sends a query to mycroft
