@@ -75,11 +75,19 @@ module Mycroft
     end
 
     def query_success(id, ret)
-      query_success = {
+      query_success_message = {
         id: id,
         ret: ret
       }
-      send_message('MSG_QUERY_SUCCESS', query_success)
+      send_message('MSG_QUERY_SUCCESS', query_success_message)
+    end
+
+    def query_fail(id, message)
+      query_fail_message = { 
+        id: id, 
+        message: message
+      }
+      send_message('MSG_QUERY_FAIL', query_fail_message)
     end
 
     # Sends a broadcast to the mycroft message board
