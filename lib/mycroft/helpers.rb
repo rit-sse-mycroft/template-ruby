@@ -25,7 +25,7 @@ module Mycroft
       body = type + ' ' + message
       body.strip!
       length = body.bytesize
-      puts 'Sending Messsage'
+      puts 'Sending Message'
       puts length
       puts body
       @client.write("#{length}\n#{body}")
