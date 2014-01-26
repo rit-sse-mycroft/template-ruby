@@ -30,5 +30,14 @@ module Mycroft
       puts body
       @client.write("#{length}\n#{body}")
     end
+
+    def update_dependencies(deps)
+      deps.each do |capability, instance|
+        @dependencies[capability] ||= {}
+        instance.each do |appId, status|
+          @dependencies[capability][appId] = status
+        end
+      end
+    end
   end
 end

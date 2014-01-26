@@ -18,7 +18,7 @@ module Mycroft
         setup
       end
     end
-    
+
     def setup
       send_manifest
       connect
