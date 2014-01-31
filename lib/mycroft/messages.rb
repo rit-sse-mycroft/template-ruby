@@ -25,16 +25,6 @@ module Mycroft
       end
     end
 
-    # Checks if the manifest is valid and returns dependencies
-    def check_manifest(parsed)
-      if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
-        raise 'Invalid application manifest' if parsed[:type] == 'APP_MANIFEST_FAIL'
-        puts 'Manifest Validated'
-        return parsed[:data]['dependencies']
-      end
-      nil
-    end
-
     # Sends the app manifest to mycroft
     def send_manifest
       begin

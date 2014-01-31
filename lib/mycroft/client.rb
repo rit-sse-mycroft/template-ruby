@@ -21,8 +21,13 @@ module Mycroft
 
     def setup
       send_manifest
-      connect
+      instance_eval &@@handlers['connect'] unless @@handlers['end'].nil?
       run
+    end
+
+    def self.on(type, &block)
+      @@handlers ||= {}
+      @@handlers[type] = block
     end
 
     def run
@@ -30,29 +35,34 @@ module Mycroft
         if @client.ready?
           size = @client.readline
           data = @client.read(size.to_i)
-          receive_data(data)
+          parsed = parse_message(data)
+          puts "Recieved #{parsed[:type]}"
+          unless @@handlers[parsed[:type]].nil?
+            instance_exec(parsed[:data], &@@handlers[parsed[:type]])
+          else
+            puts "Not handling message: #{parsed[:type]}"
+          end
         end
-        on_event_loop if methods.include?(:on_event_lopp)
+        on_event_loop if methods.include?(:on_event_loop)
       end
     ensure
       shutdown
     end
 
-    def receive_data(data)
-      parsed = parse_message(data)
-      puts "Recieved #{parsed}"
-      if parsed[:type] == 'APP_MANIFEST_OK' || parsed[:type] == 'APP_MANIFEST_FAIL'
-        check_manifest(parsed)
-        @verified = true
-      end
-      on_data(parsed)
-    end
-
     def shutdown
-      on_end
+      instance_eval &@@handlers['end'] unless @@handlers['end'].nil?
       down
       puts 'Disconnected from Mycroft'
       @client.close
+    end
+
+    on 'APP_MANIFEST_OK' do |data|
+      @verified = true
+      puts 'Manifest Verified'
+    end
+
+    on 'APP_MANIFEST_FAIL' do |data|
+      raise 'Invalid application manifest'
     end
   end
 end
