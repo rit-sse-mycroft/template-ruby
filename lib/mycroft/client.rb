@@ -64,5 +64,9 @@ module Mycroft
     on 'APP_MANIFEST_FAIL' do |data|
       raise 'Invalid application manifest'
     end
+
+    on 'MSG_GENERAL_FAILURE' do |data|
+      puts data['message']
+    end
   end
 end
