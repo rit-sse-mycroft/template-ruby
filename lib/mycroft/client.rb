@@ -21,7 +21,7 @@ module Mycroft
 
     def setup
       send_manifest
-      instance_eval &@@handlers['connect'] unless @@handlers['end'].nil?
+      instance_eval &@@handlers['connect'] unless @@handlers['connect'].nil?
       run
     end
 
