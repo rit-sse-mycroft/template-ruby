@@ -1,5 +1,7 @@
 require 'socket'
 require 'io/wait'
+require 'logger'
+require 'colorize'
 
 module Mycroft
   class Client
@@ -8,8 +10,23 @@ module Mycroft
     def initialize(host, port)
       @host = host
       @port = port
+      @logger = Logger.new(STDOUT)
+      @logger.level = Logger::DEBUG
+      @logger.datetime_format = '%Y-%m-%d %H:%M:%S'
+      @logger.formatter = proc do |severity, datetime, progname, msg|
+        string = "#{datetime} #{severity}: #{msg}\n"
+        case severity
+        when 'INFO'
+          string = string.cyan
+        when 'WARNING'
+          string = string.yellow
+        when 'ERROR', 'FATAL'
+          string = string.red
+        end
+        string
+      end
       connect_to_mycroft
-      puts 'Connected to mycroft'
+      @logger.info('Connected to Mycroft')
       if @threaded
         Thread.new do
           setup
@@ -36,11 +53,12 @@ module Mycroft
           size = @client.readline
           data = @client.read(size.to_i)
           parsed = parse_message(data)
-          puts "Recieved #{parsed[:type]}"
+          @logger.info "Recieved #{parsed[:type]}"
+          @logger.debug "#{size.to_i} #{data}"
           unless @@handlers[parsed[:type]].nil?
             instance_exec(parsed[:data], &@@handlers[parsed[:type]])
           else
-            puts "Not handling message: #{parsed[:type]}"
+            @logger.warn "Not handling message: #{parsed[:type]}"
           end
         end
         on_event_loop if methods.include?(:on_event_loop)
@@ -52,21 +70,22 @@ module Mycroft
     def shutdown
       instance_eval &@@handlers['end'] unless @@handlers['end'].nil?
       down
-      puts 'Disconnected from Mycroft'
+      @logger.info 'Disconnected from Mycroft'
       @client.close
     end
 
     on 'APP_MANIFEST_OK' do |data|
       @verified = true
-      puts 'Manifest Verified'
+      @logger.info 'Manifest Verified'
     end
 
     on 'APP_MANIFEST_FAIL' do |data|
+      @logger.error 'Invalid application manifest'
       raise 'Invalid application manifest'
     end
 
     on 'MSG_GENERAL_FAILURE' do |data|
-      puts data['message']
+      @logger.error "MSG_GENERAL_FAILURE: #{data['message']}"
     end
   end
 end
