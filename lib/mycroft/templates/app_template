@@ -2,8 +2,6 @@ require 'mycroft'
 
 class %%APPNAME%% < Mycroft::Client
 
-  attr_accessor :verified
-
   def initialize(host, port)
     @key = '/path/to/key'
     @cert = '/path/to/cert'
@@ -12,17 +10,12 @@ class %%APPNAME%% < Mycroft::Client
     super
   end
 
-  def connect
+  on 'APP_DEPENDENCY' do |data|
     # Your code here
   end
 
-  def on_data(data)
-    # Your code here
-  end
+  # Any other event handlers
 
-  def on_end
-    # Your code here
-  end
 end
 
 Mycroft.start(%%APPNAME%%)
