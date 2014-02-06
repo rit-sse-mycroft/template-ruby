@@ -74,8 +74,8 @@ module Mycroft
     end
 
     def query_fail(id, message)
-      query_fail_message = { 
-        id: id, 
+      query_fail_message = {
+        id: id,
         message: message
       }
       send_message('MSG_QUERY_FAIL', query_fail_message)

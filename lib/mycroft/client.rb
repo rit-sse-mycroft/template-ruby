@@ -53,7 +53,7 @@ module Mycroft
           size = @client.readline
           data = @client.read(size.to_i)
           parsed = parse_message(data)
-          @logger.info "Recieved #{parsed[:type]}"
+          @logger.info "Got #{parsed[:type]}"
           @logger.debug "#{size.to_i} #{data}"
           unless @@handlers[parsed[:type]].nil?
             instance_exec(parsed[:data], &@@handlers[parsed[:type]])
