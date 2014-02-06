@@ -33,8 +33,8 @@ module Mycroft
     def update_dependencies(deps)
       deps.each do |capability, instance|
         @dependencies[capability] ||= {}
-        instance.each do |appId, status|
-          @dependencies[capability][appId] = status
+        instance.each do |app_id, status|
+          @dependencies[capability][app_id] = status
         end
       end
     end
