@@ -1,24 +1,5 @@
 require 'socket'
 require 'io/wait'
-require 'logger'
-require 'yell'
-
-module Yell #:nodoc:
-  module Adapters #:nodoc:
-
-    class Io < Yell::Adapters::Base
-      TTYColors = {
-        0   => "\033[0m",     # normal
-        1   => "\033[1;36m",  # cyan
-        2   => "\033[1;33m",  # yellow
-        3   => "\033[1;31m",  # red
-        4   => "\033[1;31m",  # red
-        5   => "\033[1;31m",  # cyan
-        -1  => "\033[0m"      # normal
-      }
-    end
-  end
-end
 
 module Mycroft
   class Client
@@ -28,11 +9,7 @@ module Mycroft
       @host = host
       @port = port
       @name ||= 'mycroft'
-      Dir.mkdir('logs') unless File.exists?('logs')
-      @logger = Yell.new(format: Yell.format('%d [%5L] %m', '%Y-%m-%d %H:%M:%S' )) do |l|
-        l.adapter :datefile, "logs/#{@name}.log"
-        l.adapter :stdout, colors: true
-      end
+      @logger = Logger.new("logs/#{@name}")
       connect_to_mycroft
       @logger.info('Connected to Mycroft')
       if @threaded
