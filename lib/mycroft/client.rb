@@ -9,7 +9,7 @@ module Mycroft
       @host = host
       @port = port
       @name ||= 'mycroft'
-      @logger = Logger.new("logs/#{@name}")
+      @logger = Logger.new(@name)
       connect_to_mycroft
       @logger.info('Connected to Mycroft')
       if @threaded
