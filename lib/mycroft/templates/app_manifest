@@ -1,10 +1,14 @@
 {
-    "version": "0.0.1",
+    "version": "0.0.0",
     "name": "%%DASHED%%",
-    "displayName": "",
-    "instanceId": "",
-    "capabilities": {},
+    "displayName": "%%DISPLAYNAME%%",
+    "instanceId": "%%INSTANCEID%%%",
+    "capabilities": {
+
+    },
     "API": 0,
-    "description": "",
-    "dependencies": {}
+    "description": "%%DESC%%",
+    "dependencies": {
+
+    }
 }
