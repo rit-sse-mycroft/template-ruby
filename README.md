@@ -2,22 +2,84 @@
 
 Gem for creating mycroft application in ruby.
 
-## Installation
+### Install
+Install bundler:
+~~~
+gem install bundler
+~~~
 
-Add this line to your application's Gemfile:
+From inside the ruby app directory
 
-    gem 'mycroft'
+~~~
+bundle install
+rake install
+~~~
+If we ever put this on ruby gems:
 
-And then execute:
+```
+gem install mycroft
+```
 
-    $ bundle
+### Create a new App
+`mycroft new APPNAME`
 
-Or install it yourself as:
+## Running your app
+`ruby YOUR_APP.rb [--no-tls]`
 
-    $ gem install mycroft
+### Example App
+```ruby
+require 'mycroft'
 
-## Usage
+class MockAppRuby < Mycroft::Client
 
-To generate a new template
+  def initialize(host, port)
+    @key = ''
+    @cert = ''
+    @manifest = './mock_app_ruby.json'
+    @verified = false
+    super
+  end
 
-`mycroft new [APP_NAME]`
+  on 'APP_DEPENDENCY' do |data|
+    update_dependencies(data)
+    up
+    broadcast({message: "I'm broadcasting things"})
+  end
+end
+
+Mycroft::start(MockAppRuby)
+```
+
+### Overview of MockRubyApp
+
+#### initialize
+Specify the path to key, path to cert, path to app manifest, and whether it's verified or not. Set that to false. 
+
+#### on
+For each of the different messages, you create an event handler using the `on` method. You can also do this for `connect` and `end`. You can create multiple handlers per message if that's what you want to do. The Base class creates 3 for you. On `APP_MANIFEST_OK` `@verified` is set to `true` and it is logged. On `APP_MANIFEST_FAIL`, it raises an error. On `MSG_GENERAL_FAILURE`, the message is logged. 
+
+### Helper Methods
+
+#### up
+Sends `APP_UP` to mycroft
+
+#### down
+Sends `APP_DOWN` to mycroft
+
+#### in_use
+Sends `APP_IN_USE` to mycroft
+
+#### query(capability, action, data, priority = 30, instance_id = nil)
+Sends a `MSG_QUERY` to mycroft
+
+#### broadcast(content)
+Sends a `MSG_BROADCAST` to mycroft
+
+#### query_success(id, ret)
+Sends a `MSG_QUERY_SUCCESS` to mycroft
+
+#### query_fail(id, message)
+Sends a `MSG_QUERY_FAIL` to mycroft
+
+#### update_dependencies(dependencies)
+Updates `@dependencies` given the dependencies json block.
