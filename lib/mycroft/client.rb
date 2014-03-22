@@ -9,9 +9,7 @@ module Mycroft
       @host = host
       @port = port
       @name ||= 'mycroft'
-      @logger = Logger.new(@name)
       connect_to_mycroft
-      @logger.info('Connected to Mycroft')
       if @threaded
         Thread.new do
           setup
@@ -38,12 +36,9 @@ module Mycroft
           size = @client.readline
           data = @client.read(size.to_i)
           parsed = parse_message(data)
-          @logger.info "Got #{parsed[:type]}"
-          @logger.debug "#{size.to_i} #{data}"
           unless @@handlers[parsed[:type]].nil?
             instance_exec(parsed[:data], &@@handlers[parsed[:type]])
           else
-            @logger.warn "Not handling message: #{parsed[:type]}"
           end
         end
         on_event_loop if methods.include?(:on_event_loop)
@@ -55,22 +50,18 @@ module Mycroft
     def shutdown
       instance_eval &@@handlers['end'] unless @@handlers['end'].nil?
       down
-      @logger.info 'Disconnected from Mycroft'
       @client.close
     end
 
     on 'APP_MANIFEST_OK' do |data|
       @verified = true
-      @logger.info 'Manifest Verified'
     end
 
     on 'APP_MANIFEST_FAIL' do |data|
-      @logger.error 'Invalid application manifest'
       raise 'Invalid application manifest'
     end
 
     on 'MSG_GENERAL_FAILURE' do |data|
-      @logger.error "MSG_GENERAL_FAILURE: #{data['message']}"
     end
   end
 end

@@ -8,10 +8,8 @@ module Mycroft
     # connects to mycroft aka starts tls if necessary
     def connect_to_mycroft
       if ARGV.length == 1 and ARGV[0] == '--no-tls'
-        @logger.info 'Not Using TLS'
         @client = TCPSocket.open(@host, @port)
       else
-        @logger.info 'Using TLS'
         socket = TCPSocket.new(@host, @port)
         ssl_context = OpenSSL::SSL::SSLContext.new
         ssl_context.cert = OpenSSL::X509::Certificate.new(File.open(@cert))
@@ -20,7 +18,6 @@ module Mycroft
         begin
           @client.connect
         rescue
-          @logger.error "There was an error in establishing TLS connection"
         end
       end
     end
@@ -31,7 +28,6 @@ module Mycroft
         manifest = JSON.parse(File.read(@manifest))
         manifest["instanceId"] = "#{ENV["COMPUTERNAME"]}_#{SecureRandom.uuid}" if @generate_instance_ids
       rescue
-        @logger.error 'Invalid File Path'
       end
       send_message('APP_MANIFEST', manifest)
     end
