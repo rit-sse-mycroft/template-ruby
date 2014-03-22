@@ -2,7 +2,7 @@
     "version": "0.0.0",
     "name": "%%DASHED%%",
     "displayName": "%%DISPLAYNAME%%",
-    "instanceId": "%%INSTANCEID%%%",
+    "instanceId": "%%INSTANCEID%%",
     "capabilities": {
 
     },
