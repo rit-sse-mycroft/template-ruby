@@ -21,7 +21,7 @@ gem install mycroft
 ```
 
 ### Create a new App
-`mycroft new APPNAME`
+`mycroft-ruby new APPNAME`
 
 ## Running your app
 `ruby YOUR_APP.rb [--no-tls]`
