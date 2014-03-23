@@ -1,5 +1,6 @@
 require 'json'
 require 'securerandom'
+require 'socket'
 
 module Mycroft
   module Messages
@@ -26,7 +27,8 @@ module Mycroft
     def send_manifest
       begin
         manifest = JSON.parse(File.read(@manifest))
-        manifest["instanceId"] = "#{ENV["COMPUTERNAME"]}_#{SecureRandom.uuid}" if @generate_instance_ids
+        manifest['instanceId'] = "#{Socket.gethostname}_#{SecureRandom.uuid}" if @generate_instance_ids
+        @instance_id = manifest['instanceId']
       rescue
       end
       send_message('APP_MANIFEST', manifest)
