@@ -25,8 +25,6 @@ module Mycroft
       body = type + ' ' + message
       body.strip!
       length = body.bytesize
-      @logger.info "Sending Message #{type}"
-      @logger.debug "#{length} #{body}"
       @client.write("#{length}\n#{body}")
     end
 
