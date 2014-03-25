@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["rit-sse"]
   spec.description   = %q{Gem for creating a mycroft app in ruby.}
   spec.summary       = %q{Gem for creating a mycroft app in ruby.}
-  spec.homepage      = "https://github.com/rit-sse-mycroft/app-templates/tree/master/ruby"
+  spec.homepage      = "https://github.com/rit-sse-mycroft/template-ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "activesupport"
   spec.add_runtime_dependency "i18n"

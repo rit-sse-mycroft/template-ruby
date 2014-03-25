@@ -4,10 +4,10 @@ module Mycroft
     # Parses a message
     def parse_message(msg)
       msg = msg.to_s
-      re = /([A-Z_]*) ({.*})$/
+      re = /([A-Z_]+) ({.*})$/
       msg_split = re.match(msg)
       if msg_split.nil?
-        re = /([A-Z_]*)/
+        re = /^([A-Z_]+)$/
         msg_split = re.match(msg)
         raise "Error: Malformed Message" if not msg_split
         type = msg_split[1]
