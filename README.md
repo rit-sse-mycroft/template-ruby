@@ -53,10 +53,10 @@ Mycroft::start(MockAppRuby)
 ### Overview of MockRubyApp
 
 #### initialize
-Specify the path to key, path to cert, path to app manifest, and whether it's verified or not. Set that to false. 
+Specify the path to key, path to cert, path to app manifest, and whether it's verified or not. Set that to false.
 
 #### on
-For each of the different messages, you create an event handler using the `on` method. You can also do this for `connect` and `end`. You can create multiple handlers per message if that's what you want to do. The Base class creates 3 for you. On `APP_MANIFEST_OK` `@verified` is set to `true` and it is logged. On `APP_MANIFEST_FAIL`, it raises an error. On `MSG_GENERAL_FAILURE`, the message is logged. 
+For each of the different messages, you create an event handler using the `on` method. You can also do this for `CONNECT`, `CONNECTION_CLOSED`, and `ERROR`. You can create multiple handlers per message if that's what you want to do. The Base class creates 3 for you. On `APP_MANIFEST_OK` `@verified` is set to `true` and it is logged. On `APP_MANIFEST_FAIL`, it raises an error. On `MSG_GENERAL_FAILURE`, the message is logged. 
 
 ### Helper Methods
 

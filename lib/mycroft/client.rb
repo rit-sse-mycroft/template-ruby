@@ -17,11 +17,13 @@ module Mycroft
       else
         setup
       end
+    rescue Exception => e
+      instance_exec(e, &@@handlers['ERROR']) unless @@handlers['ERROR'].nil?
     end
 
     def setup
       send_manifest
-      instance_eval &@@handlers['connect'] unless @@handlers['connect'].nil?
+      instance_eval &@@handlers['CONNECT'] unless @@handlers['CONNECT'].nil?
       run
     end
 
@@ -48,7 +50,7 @@ module Mycroft
     end
 
     def shutdown
-      instance_eval &@@handlers['end'] unless @@handlers['end'].nil?
+      instance_eval &@@handlers['CONNECTION_CLOSED'] unless @@handlers['CONNECTION_CLOSED'].nil?
       down
       @client.close
     end
