@@ -21,7 +21,7 @@ gem install mycroft
 ```
 
 ### Create a new App
-`mycroft-ruby new APPNAME`
+`mycroft-ruby new [APPNAME]`
 
 ## Running your app
 `ruby YOUR_APP.rb [--no-tls]`
@@ -41,7 +41,6 @@ class MockAppRuby < Mycroft::Client
   end
 
   on 'APP_DEPENDENCY' do |data|
-    update_dependencies(data)
     up
     broadcast({message: "I'm broadcasting things"})
   end
@@ -56,7 +55,7 @@ Mycroft::start(MockAppRuby)
 Specify the path to key, path to cert, path to app manifest, and whether it's verified or not. Set that to false.
 
 #### on
-For each of the different messages, you create an event handler using the `on` method. You can also do this for `CONNECT`, `CONNECTION_CLOSED`, and `ERROR`. You can create multiple handlers per message if that's what you want to do. The Base class creates 3 for you. On `APP_MANIFEST_OK` `@verified` is set to `true` and it is logged. On `APP_MANIFEST_FAIL`, it raises an error. On `MSG_GENERAL_FAILURE`, the message is logged. 
+For each of the different messages, you create an event handler using the `on` method. You can also do this for `CONNECT`, `CONNECTION_CLOSED`, and `ERROR`. You can create multiple handlers per message if that's what you want to do. The Base class creates 3 for you. On `APP_MANIFEST_OK` `@verified` is set to `true`. On `APP_MANIFEST_FAIL` and `MSG_GENERAL_FAILURE`, it raises an error. On `APP_DEPENDENCY`, `@depedencies` is updated with current dependencies.
 
 ### Helper Methods
 
@@ -80,6 +79,3 @@ Sends a `MSG_QUERY_SUCCESS` to mycroft
 
 #### query_fail(id, message)
 Sends a `MSG_QUERY_FAIL` to mycroft
-
-#### update_dependencies(dependencies)
-Updates `@dependencies` given the dependencies json block.

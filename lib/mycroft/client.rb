@@ -64,6 +64,11 @@ module Mycroft
     end
 
     on 'MSG_GENERAL_FAILURE' do |data|
+      raise data.message
+    end
+
+    on 'APP_DEPENDENCY' do |data|
+      update_dependencies(data)
     end
   end
 end
