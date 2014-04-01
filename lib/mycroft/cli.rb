@@ -22,7 +22,7 @@ module Mycroft
       app_manifest = File.read("#{path}/app_manifest")
       app_manifest.gsub!(/%%DASHED%%/, dashed)
       app_manifest.gsub!(/%%DISPLAYNAME%%/, dn)
-      app_manifest.gsub!(/%%INASTANCEID%%/, instance_id)
+      app_manifest.gsub!(/%%INSTANCEID%%/, instance_id)
       app_manifest.gsub!(/%%DESC%%/, desc)
 
       app_file = File.open("./#{underscore}.rb", 'w')
