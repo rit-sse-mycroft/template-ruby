@@ -5,8 +5,9 @@ require 'highline/import'
 
 module Mycroft
   class CLI < Thor
-    desc "new APPNAME", "create a new app with the name APPNAME"
-    def new(app_name)
+    desc "new [APPNAME]", "create a new app with the name APPNAME"
+    def new(app_name=nil)
+      app_name = ask("App Name: ") if app_name.nil?
       dn = ask("Display Name: ")
       instance_id = ask("Instance Id: ")
       desc = ask("Description: ")
