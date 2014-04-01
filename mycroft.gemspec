@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Gem for creating a mycroft app in ruby.}
   spec.summary       = %q{Gem for creating a mycroft app in ruby.}
   spec.homepage      = "https://github.com/rit-sse-mycroft/template-ruby"
-  spec.license       = "MIT"
+  spec.license       = "BSD"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
