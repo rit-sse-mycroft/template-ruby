@@ -34,14 +34,11 @@ module Mycroft
 
     def run
       loop do
-        if @client.ready?
-          size = @client.readline
-          data = @client.read(size.to_i)
-          parsed = parse_message(data)
-          unless @@handlers[parsed[:type]].nil?
-            instance_exec(parsed[:data], &@@handlers[parsed[:type]])
-          else
-          end
+        size = @client.readline
+        data = @client.read(size.to_i)
+        parsed = parse_message(data)
+        unless @@handlers[parsed[:type]].nil?
+          instance_exec(parsed[:data], &@@handlers[parsed[:type]])
         end
         on_event_loop if methods.include?(:on_event_loop)
       end
