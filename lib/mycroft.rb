@@ -9,6 +9,6 @@ module Mycroft
   MYCROFT_PORT = 1847
 
   def start(app, host='localhost', port=MYCROFT_PORT)
-    app.new(host, port)
+    app.new(host || 'localhost' , port || MYCROFT_PORT)
   end
 end

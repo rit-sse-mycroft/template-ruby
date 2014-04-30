@@ -8,7 +8,7 @@ module Mycroft
 
     # connects to mycroft aka starts tls if necessary
     def connect_to_mycroft
-      if ARGV.length == 1 and ARGV[0] == '--no-tls'
+      if ARGV.include?("--no-tls")
         @client = TCPSocket.open(@host, @port)
       else
         socket = TCPSocket.new(@host, @port)
